@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>FilmNest</title>
+		<!-- 移动优先，自适应手机屏幕-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--引入bootstrap css文件-->
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="style.css" />
+
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+	</head>
+
+	<body>
+		<!--响应式导航栏-->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="nav_container">
+				<div class="navbar-header">
+					<a href="#"><img src="img/logo.png" /></a>
+					<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#myCollapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<div id="myCollapse" class="collapse navbar-collapse ">
+					<ul class="nav navbar-nav navbar-right ">
+						<li>
+							<a href="#" class="login">登陆</a>
+						</li>
+						<li>
+							<a href="#" class="regist">注册</a>
+						</li>
+						<li id="active" class="person">
+							<a href="#">个人中心</a>
+							<ul class="person_center">
+								<li>
+									<a href="#"><span class="glyphicon glyphicon-edit"></span> &nbsp;写博客</a>
+								</li>
+								<li>
+									<a href="#"><span class="glyphicon glyphicon-question-sign"></span> &nbsp;提问题</a>
+								</li>
+								<li>
+									<a href="#"><span class="glyphicon glyphicon-cloud-upload"></span> &nbsp;传资源</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!--遮罩-->
+		<div class="lock_screen"></div>
+		<!--用户登录-->
+		<div id="user_login">
+			<form action="" method="post">
+				<label>登录FilmNest账号<span id="login_close" class="glyphicon glyphicon-remove pull-right"></span></label>
+				<input id="user_name" type="text" placeholder=" 请输入用户名">
+				<input id="user_password" type="password" placeholder=" 请输入密码">
+				<input type="submit" class="btn_submit" value="登陆FilmNest" />
+				<p class="other_login_options">
+					还没
+					<a class="join_to_regist">加入</a>FilmNest?
+					<a class="forget_password" href="#">忘记密码</a>
+				</p>
+			</form>
+		</div>
+
+		<!--用户注册-->
+		<div id="regist_container">
+			<div class="introduce">
+				<p>Join &nbsp;FilmNest
+					<p>
+						<ul>
+							<li>本站只是个实战项目，以下纯属虚构。</li>
+							<li>与大家分享您的影评，收获志同道合的朋友。</li>
+							<li>使用便捷的收藏夹功能，记录您发现的好电影。</li>
+							<li>收藏即送大礼，满额即送，详情可咨询客服人员</li>
+						</ul>
+						<label class="agreement">
+              		<input type="checkbox" id="agreement" name="agreement" tabindex="5">
+            		  我已经认真阅读并同意FilmNest的《<a href="#">使用协议</a>》。
+          		</label>
+			</div>
+			<div id="user_regist">
+				<form action="" method="post">
+					<label>注册FilmNest账号<span id="regist_close" class="glyphicon glyphicon-remove pull-right"></span></label>
+					<input id="user_name" type="text" placeholder=" 请输入用户名">
+					<input id="user_password" type="password" placeholder=" 请输入密码">
+					<input id="user_password_again" type="password" placeholder="请确认密码">
+					<input type="submit" class="btn_submit" value="注册FilmNest" />
+					<p class="other_login_options">
+						已经加入FilmNest?
+						<a class="add_account" href="#">登陆</a>
+					</p>
+				</form>
+			</div>
+		</div>
+		<!--响应式轮播图-->
+		<div id="myCarousel" class="carousel slide">
+			<ol class="carousel-indicators ">
+				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+			</ol>
+			<div class="carousel-inner ">
+				<div class="item active">
+					<img src="img/ring1.jpg" class="img-side" alt="第一张" />
+				</div>
+				<div class="item">
+					<img src="img/ring2.jpg" class="img-side" alt="第二张" />
+				</div>
+				<div class="item">
+					<img src="img/ring3.jpg" class="img-side" alt="第三张" />
+				</div>
+			</div>
+			<a href="#myCarousel" data-slide="prev" class="carousel-control left">
+				<span class="glyphicon glyphicon-chevron-left"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+			<a href="#myCarousel" data-slide="next" class="carousel-control right">
+				<span class="glyphicon glyphicon-chevron-right"></span>
+				<span class="sr-only">Next</span>
+			</a>
+		</div>
+		<div class="img_info" style="z-index: 9;">
+			<p>
+				<span style="color: #f60">指环王</span>
+			</p>
+		</div>
+		<!--引入jquery-->
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+		<script type="text/javascript" src="js/base.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+	</body>
+
+</html>

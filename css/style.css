@@ -1,0 +1,242 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Helvetica Neue', PingFangSC-Light, 'Microsoft Yahei', sans-serif;
+}
+
+ul {
+	list-style: none;
+}
+
+a,
+a:hover {
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.nav_container {
+	/*filter: alpha(Opacity=10);
+	opacity: 0.1;*/
+	background-color: #222;
+	/*兼容IE*/
+}
+
+.navbar {
+	z-index: 9997;
+}
+
+.navbar-toggle {
+	position: relative;
+	top: 10px;
+}
+
+#myCollapse a {
+	font-size: 16px;
+	color: white;
+	line-height: 40px;
+	background-color: #222;
+}
+
+#myCollapse a:hover {
+	color: #f60;
+}
+
+#login {
+	display: none;
+}
+
+.person {
+	margin-right: 100px;
+}
+
+.person_center {
+	width: 160px;
+	border: 1px solid #ddd;
+	padding: 0;
+	display: none;
+	position: absolute;
+}
+
+.person_center a {
+	display: block;
+	text-decoration: none;
+	color: white;
+}
+
+
+/*登陆注册*/
+
+#user_login,
+#user_regist {
+	width: 300px;
+	height: 360px;
+	border: 5px solid #181a1a;
+	z-index: 9999;
+	background-color: white;
+	text-align: center;
+}
+
+#user_login,
+#regist_container {
+	display: none;
+	z-index: 9999;
+	position: absolute;
+}
+
+form label {
+	font-size: 18px;
+	font-weight: 700;
+	display: block;
+	margin: 40px -30px;
+}
+
+#login_close,
+#regist_close {
+	color: #222;
+	cursor: pointer;
+}
+
+#login_close:hover,
+#regist_close:hover {
+	color: #f60;
+}
+
+#user_name,
+#user_password,
+#user_password_again {
+	width: 80%;
+	height: 30px;
+	margin-bottom: 22px;
+}
+
+.btn_submit {
+	display: inline-block;
+	width: 40%;
+	height: 32px;
+	color: white;
+	background-color: #f60;
+	vertical-align: middle;
+	border: 1px solid transparent;
+	font-size: 15px;
+	border-radius: 2px;
+}
+
+.other_login_options,
+.other_login_options a:hover {
+	margin-top: 20px;
+	color: #666;
+}
+
+.join_to_regist,
+.forget_password {
+	color: #f60;
+}
+
+.forget_password,
+.add_account {
+	margin-left: 5px;
+}
+
+.lock_screen {
+	filter: alpha(Opacity=30);
+	display: none;
+	opacity: 0.3;
+	z-index: 9998;
+	background-color: #666;
+	position: fixed;
+}
+
+#regist_container {
+	width: 300px;
+	height: 360px;
+}
+
+.introduce {
+	width: 300px;
+	height: 360px;
+	z-index: 9999;
+	color: white;
+	float: left;
+	background-color: #222;
+	display: none;
+}
+
+.introduce p {
+	margin-top: 30px;
+	text-indent: 30px;
+	font-size: 18px;
+	letter-spacing: 2px;
+}
+
+.introduce ul {
+	list-style: disc;
+	font-size: 15px;
+}
+
+.introduce ul li {
+	margin-bottom: 15px;
+	margin-left: -10px;
+}
+
+label {
+	font-size: 12px;
+	font-weight: normal;
+	text-indent: 10px;
+}
+
+
+/*图*/
+
+#myCarousel {
+	margin-top: 70px;
+	position: relative;
+}
+
+.img-side {
+	max-height: 600px;
+	width: 100%;
+}
+
+.img_info {
+	position: absolute;
+	bottom: 10%;
+	left: 0;
+	width: 100%;
+	height: 60px;
+	background-color: #666;
+	background-size: 100%;
+}
+
+.img_info p {
+	color: #999;
+	text-align: center;
+	font-size: 26px;
+	line-height: 60px;
+}
+
+/*媒体查询*/
+
+
+/* 小屏幕（平板，大于等于 768px） */
+
+@media (min-width: 768px) {
+	.introduce {
+		display: block;
+	}
+	#regist_container {
+		width: 600px;
+	}
+	#user_regist {
+		float: left;
+	}
+}
+
+
+/* 中等屏幕（桌面显示器，大于等于 992px） */
+
+@media (min-width: 992px) {}
+
+
+/* 大屏幕（大桌面显示器，大于等于 1200px） */
+
+@media (min-width: 1200px) {}
