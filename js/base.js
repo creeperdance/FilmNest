@@ -111,7 +111,7 @@ Base.prototype.getElement = function(index) {
 //添加Class
 Base.prototype.addClass = function(className) {
 	for(var i = 0; i < this.elements.length; i++) {
-		if(!this.elements[i].className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'))) {
+		if(!this.elements[i].className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'))){
 			this.elements[i].className += " " + className;
 		}
 	}
@@ -222,4 +222,8 @@ Base.prototype.drag = function() {
 		}
 	}
 	return this;
+}
+//设置菜单切换功能
+Base.prototype.switch=function(){
+	
 }
