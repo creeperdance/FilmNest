@@ -227,17 +227,6 @@
 		font-size: 28px;
 		text-align: center;
 	}
-	/*.role_name .item_active,
-	.role_name span:hover {
-		cursor: pointer;
-		color: #f60;
-	}
-	
-	.role_name span {
-		font-weight: bold;
-		font-size: 16px;
-	}
-	*/
 	
 	.film_list li a {
 		color: #f60;
@@ -252,7 +241,6 @@
 	.role_avatar p {
 		font-size: 18px;
 		padding: 2px;
-		/*border-bottom: 1px solid #f60;*/
 	}
 	
 	.role_avatar a,
@@ -265,7 +253,7 @@
 		height: 200px;
 	}
 	
-	.role_info .row {
+	.film_list .row {
 		text-align: center;
 	}
 	
