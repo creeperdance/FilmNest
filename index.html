@@ -1,16 +1,19 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="zh-CN">
 
 	<head>
-		<meta charset="utf-8" />
-		<title>FilmNest</title>
+		<meta charset="UTF-8">
 		<!-- 移动优先，自适应手机屏幕-->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--解决bootstrap不支持IE兼容模式问题，为了让IE浏览器运行最新的渲染模式-->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>FilmNest</title>
 		<!--引入bootstrap css文件-->
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-		<link rel="stylesheet" type="text/css" href="style.css" />
-
+		<link rel="stylesheet" type="text/css" href="bootstrap/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<script src="bootstrap/respond.min.js"></script>
+		<script src="bootstrap/html5.js"></script>
+		<!--<script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>-->
 	</head>
 
 	<body>
@@ -67,7 +70,6 @@
 				</p>
 			</form>
 		</div>
-
 		<!--用户注册-->
 		<div id="regist_container">
 			<div class="introduce">
@@ -156,7 +158,7 @@
 						<span class="item" id="1">玛蒂尔达</span>
 						<span>&nbsp;|&nbsp;</span>-->
 					</div>
-					<div class="role_info">
+					<div id="role_info1">
 						<div id="1" class="row role_avatar">
 							<div class="col-md-4">
 								<img class="img-circle" src="img/leon.jpg" />
@@ -169,7 +171,7 @@
 								<div class="bgm">
 									<span><i class="glyphicon glyphicon-music"></i> &nbsp;&nbsp;Shape Of My Heart</span>
 									<audio controls>
-										<source src="shape of my heart.mp3" type="audio/mpeg"> 您的浏览器不支持 audio 元素。
+										<source src="shape of my heart.mp3" type="audio/mpeg">
 									</audio>
 								</div>
 							</div>
@@ -207,7 +209,7 @@
 							</li>
 						</ul>
 					</div>
-					<div class="role_info">
+					<div id="role_info2">
 						<div class="row role_avatar">
 							<div class="col-md-4">
 								<img class="img-circle" src="img/juli.jpg" />
@@ -270,7 +272,7 @@
 							</li>
 						</ul>
 					</div>
-					<div class="role_info">
+					<div id="role_info3">
 						<div id="1" class="row role_avatar">
 							<div class="col-md-4">
 								<img class="img-circle" src="img/Frodo.jpg" />
@@ -372,15 +374,13 @@
 				</div>
 			</div>
 		</div>
-		
 		<footer id="footer" class="container">
 			<p>福建师范大学|软件工程专业|</p>
 			<p>Copyright © 2017 creeperdance@163.com, <span>@Weixuee</span>.</p>
 		</footer>
-		
 		<!--引入jquery-->
-		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="bootstrap/jquery.min.js"></script>
+		<script type="text/javascript" src="bootstrap/bootstrap.min.js"></script>
 
 		<script type="text/javascript" src="js/base.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>

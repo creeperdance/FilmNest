@@ -238,9 +238,11 @@
 		font-size: 16px;
 	}
 	*/
-	.film_list li a{
+	
+	.film_list li a {
 		color: #f60;
 	}
+	
 	.role_avatar {
 		display: none;
 		padding-top: 30px;
@@ -297,7 +299,6 @@
 		width: 80%;
 	}
 	
-	
 	#footer {
 		margin-top: 100px;
 	}
@@ -311,8 +312,6 @@
 		font-size: 12px;
 		color: #A8A8A8;
 	}
-	
-	
 	/*媒体查询*/
 	/* 小屏幕（平板，大于等于 768px） */
 	
@@ -344,3 +343,4 @@
 	/* 大屏幕（大桌面显示器，大于等于 1200px） */
 	
 	@media (min-width: 1200px) {}
+	
