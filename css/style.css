@@ -1,4 +1,4 @@
-	body {
+﻿	body {
 		margin: 0;
 		padding: 0;
 		font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Helvetica Neue', PingFangSC-Light, 'Microsoft Yahei', sans-serif;
@@ -15,14 +15,13 @@
 	}
 	
 	.nav_container {
-		/*filter: alpha(Opacity=10);
-	opacity: 0.1;*/
 		background-color: #222;
-		/*兼容IE*/
 	}
 	/*导航条*/
 	
 	.navbar {
+		left: 0;
+		top: 0;
 		z-index: 9997;
 		position: fixed;
 	}
@@ -32,13 +31,18 @@
 		top: 10px;
 	}
 	
+	#myCarousel {
+		left: 0px;
+		top: 70px;
+		z-index: 9996;
+	}
+	
 	#myCollapse a {
 		font-size: 16px;
 		color: white;
 		line-height: 40px;
 		background-color: #222;
 	}
-	
 	#myCollapse a:hover {
 		color: #f60;
 	}
@@ -212,14 +216,52 @@
 		line-height: 30px;
 		background: rgba(255, 255, 255, 0.2) none no-repeat scroll !important;
 	}
+	/*侧边栏*/
+	/*取消boostrap .row引起的滚动条*/
+	.row {
+		margin-left: 0px;
+		margin-right: 0px;
+	}
+	
+	.sidebar {
+		position: fixed;
+		z-index: 9;
+		left: 0;
+		top: 70px;
+		width: 15%;
+		padding-top: 15px;
+		border-right: 2px solid #f8f8f8;
+		display: none;
+		font-family:"din-condensed-web","Trebuchet MS","Arial Narrow",Arial,sans-serif;
+	}
+	.sidebar p{
+		font-size: 24px;
+		margin: 20px auto;
+		margin-bottom: 150px ;
+		text-align:center;
+		cursor: pointer;
+		font-weight: bold;
+		letter-spacing:3px;
+		position: relative;
+		width: 60%;
+		height: 24px;
+	}
+	.sidebar img {
+		position: absolute;
+		left:-10%;
+		top: 0;
+		border-radius: 10px;
+		-webkit-filter: grayscale(100%);/* Chrome, Safari, Opera */
+		filter: grayscale(100%);
+		opacity: 0;
+		filter: alpha(Opacity=0);
+		width: 50px;
+		height: 50px;
+	}
 	/*电影小窝*/
 	
 	.myNest {
 		color: #444;
-	}
-	
-	.film_list {
-		margin: 100px auto;
 	}
 	
 	.myNest p {
@@ -227,22 +269,13 @@
 		font-size: 28px;
 		text-align: center;
 	}
-	/*.role_name .item_active,
-	.role_name span:hover {
-		cursor: pointer;
+	
+	.myNest li a {
 		color: #f60;
 	}
-	
-	.role_name span {
-		font-weight: bold;
-		font-size: 16px;
+	#film_list1{
+		padding-top: 80px;
 	}
-	*/
-	
-	.film_list li a {
-		color: #f60;
-	}
-	
 	.role_avatar {
 		display: none;
 		padding-top: 30px;
@@ -252,7 +285,6 @@
 	.role_avatar p {
 		font-size: 18px;
 		padding: 2px;
-		/*border-bottom: 1px solid #f60;*/
 	}
 	
 	.role_avatar a,
@@ -261,11 +293,12 @@
 	}
 	
 	.role_avatar img {
+		opacity: 0.9;
+		filter: alpha(Opacity=90);
 		width: 200px;
 		height: 200px;
 	}
-	
-	.role_info .row {
+	.myNest .row {
 		text-align: center;
 	}
 	
@@ -298,11 +331,9 @@
 		top: -6px;
 		width: 80%;
 	}
-	
 	#footer {
 		margin-top: 100px;
 	}
-	
 	#footer span {
 		color: #043e92;
 	}
@@ -342,5 +373,8 @@
 	@media (min-width: 992px) {}
 	/* 大屏幕（大桌面显示器，大于等于 1200px） */
 	
-	@media (min-width: 1200px) {}
-	
+	@media (min-width: 1200px) {
+		.sidebar {
+			display: block;
+		}
+	}

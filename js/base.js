@@ -3,6 +3,21 @@
  * */
 
 /*兼容：*/
+//浏览器检测
+(function() {
+	//全局对象记录浏览器检测记录
+	window.sys = {};
+	var ua = navigator.userAgent.toLowerCase();
+	var s;
+	(s = ua.match(/msie ([\d.]+)/)) ? sys.ie = s[1]:
+		(s = ua.match(/firefox\/([\d.]+)/)) ? sys.firefox = s[1] :
+		(s = ua.match(/chrome\/([\d.]+)/)) ? sys.chrome = s[1] :
+		(s = ua.match(/opera.*version\/([\d.]+)/)) ? sys.opera = s[1] :
+		(s = ua.match(/version\/([\d.]+).*safari/)) ? sys.safari = s[1] : 0;
+	if(/applewebkit\/([\d.]+)/.test(ua))
+		sys.webkit = ua.match(/applewebkit\/([\d.]+)/)[1];
+})()
+
 //获取样式
 function getStyle(obj, attr) {
 	if(typeof getComputedStyle != "undefined") {
@@ -25,12 +40,45 @@ function getInner() {
 		}
 	}
 }
+//加载DOM
+function addDomLoaded(fn) {
+	var isReady = false;
+	var timer = null;
+
+	function doReady() {
+		if(isReady) return;
+		isReady = true;
+		if(timer) clearInterval(timer);
+		fn();
+	}
+	if(document.addEventListener) { //W3C
+		addEvent(document, 'DOMContentLoaded', function() {
+			doReady();
+			//arguments.callee即函数本身
+			removeEvent(document, 'DOMContentLoaded', arguments.callee);
+		});
+	} else if(sys.ie && sys.ie < 9) { //IE678
+		timer = setInterval(function() {
+			try {
+				document.documentElement.doScroll('left');
+				doReady();
+			} catch(ex) {};
+		}, 1);
+	} else if((sys.webkit && sys.webkit < 525) || (sys.opera && sys.opera < 9) ||
+		(sys.firefox && sys.firefox < 3)) {
+		timer = setInterval(function() {
+			if(/loaded|complete/.test(document.readyState)) {
+				doReady();
+			}
+		}, 1);
+	}
+}
 //获取事件对象
 function getEvent(event) {
 	return event || window.event;
 }
 //事件绑定
-Base.prototype.addEvent = function(obj, type, fn) {
+addEvent = function(obj, type, fn) {
 	if(typeof obj.addEventListener != "undefined") { //W3C
 		obj.addEventListener(type, fn, false);
 	} else {
@@ -44,7 +92,7 @@ Base.prototype.addEvent = function(obj, type, fn) {
 				obj.event[type][0] = fn;
 			}
 		}
-		obj.event[type][index++] = fn;
+		obj.event[type][this.index++] = fn;
 		obj.event['on' + type] = function() {
 			for(var i = 0; i < obj.event[type].length; i++) {
 				obj.event[type][i]();
@@ -52,9 +100,9 @@ Base.prototype.addEvent = function(obj, type, fn) {
 		}
 	}
 };
-Base.prototype.addEvent.index = 1;
+addEvent.index = 1;
 //事件移出
-Base.prototype.removeEvent = function(obj, type, fn) {
+removeEvent = function(obj, type, fn) {
 	if(typeof obj.removeEventListener != "undefined") { //W3C
 		obj.removeEventListener(type, fn);
 	} else {
@@ -66,6 +114,7 @@ Base.prototype.removeEvent = function(obj, type, fn) {
 		}
 	}
 }
+
 /*封装库：*/
 function $(args) {
 	return new Base(args);
@@ -125,8 +174,13 @@ function Base(args) {
 		if(args != undefined) {
 			this.elements[0] = args;
 		}
+	} else if(typeof args == 'function') {
+		this.ready(args);
 	}
-
+}
+//DOM加载
+Base.prototype.ready = function(fn) {
+	addDomLoaded(fn);
 }
 //获取ID 节点
 Base.prototype.getId = function(id) {
@@ -215,18 +269,18 @@ Base.prototype.removeClass = function(className) {
 	}
 	return this;
 }
-//设置鼠标移入移出
+//设置鼠标移入
 Base.prototype.hover = function(over, out) {
 	for(var i = 0; i < this.elements.length; i++) {
-		this.elements[i].onmouseover = over;
-		this.elements[i].onmouseout = out;
+		addEvent(this.elements[i], 'mouseover', over);
+		addEvent(this.elements[i], 'mouseout', out);
 	}
 	return this;
 }
 //设置鼠标点击
 Base.prototype.click = function(on) {
 	for(var i = 0; i < this.elements.length; i++) {
-		this.elements[i].onclick = on;
+		addEvent(this.elements[i], 'click', on);
 	}
 	return this;
 }
@@ -247,14 +301,14 @@ Base.prototype.hide = function() {
 //设置元素水平居中
 Base.prototype.center = function(width, height) {
 	for(var i = 0; i < this.elements.length; i++) {
-		this.elements[i].style.top = (document.documentElement.clientHeight - parseInt(height)) / 2 + 'px';
-		this.elements[i].style.left = (document.documentElement.clientWidth - parseInt(width)) / 2 + 'px';
+		this.elements[i].style.top = (getInner().height - parseInt(height)) / 2 + 'px';
+		this.elements[i].style.left = (getInner().width - parseInt(width)) / 2 + 'px';
 	}
 	return this;
 }
 //设置浏览器窗口变动
 Base.prototype.resize = function(fn) {
-	window.onresize = fn;
+	addEvent(window, 'resize', fn);
 	return this;
 }
 //设置锁屏功能
@@ -281,12 +335,13 @@ Base.prototype.unlock = function() {
 //设置拖拽功能
 Base.prototype.drag = function() {
 	for(var i = 0; i < this.elements.length; i++) {
-		this.elements[i].onmousedown = function(e) {
+		addEvent(this.elements[i], 'mousedown', function() {
 			var e = getEvent(e);
 			var _this = this;
 			var diffX = e.clientX - _this.offsetLeft;
 			var diffY = e.clientY - _this.offsetTop;
-			document.onmousemove = function(e) {
+
+			function move() {
 				var e = getEvent(e);
 				var left = e.clientX - diffX;
 				var top = e.clientY - diffY;
@@ -303,11 +358,56 @@ Base.prototype.drag = function() {
 				_this.style.left = left + 'px';
 				_this.style.top = top + 'px';
 			}
-			document.onmouseup = function() {
-				this.onmousemove = null;
-				this.onmouseup = null;
+			addEvent(document, 'mousemove', move);
+
+			function up() {
+				removeEvent(this, 'mousemove', move);
+				addEvent(this, 'mouseup', up);
 			}
-		};
+			addEvent(document, 'mouseup', up);
+		})
+	}
+	return this;
+}
+//设置多物体同时动画效果
+var timer = null;
+Base.prototype.startMove = function(json, step, time, fn) {
+	clearInterval(timer);
+	for(var i = 0; i < this.elements.length; i++) {
+		var element = this.elements[i];
+		timer = setInterval(function() {
+			for(var attr in json) {
+				var flag = true; //判断是否全部都达到目标值
+				var current = 0; //记录属性对应的值
+				//获得属性对应的当前值
+				if(attr == 'opacity') {
+					current = Math.round(parseFloat(getStyle(element, attr) * 100));
+				} else {
+					current = parseInt(getStyle(element, attr));
+				}
+				//设置缓冲动画，计算动画变动频率值
+				var speed = (json[attr] - current) / step;
+				speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+				if(current != json[attr]) {
+					//没有全部达到目标值
+					flag = false;
+				}
+				if(attr == 'opacity') {
+					current = current + speed;
+					element.style.filter = 'alpha(opacity = ' + current + ')';
+					element.style.opacity = current / 100;
+				} else {
+					current = current + speed;
+					element.style[attr] = current + 'px';
+				}
+			}
+			if(flag) {
+				clearInterval(element.time);
+				if(fn) { //有函数则执行
+					fn();
+				}
+			}
+		}, time);
 	}
 	return this;
 }
