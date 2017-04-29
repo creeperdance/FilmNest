@@ -298,7 +298,12 @@
 		width: 200px;
 		height: 200px;
 	}
+<<<<<<< HEAD
 	.myNest .row {
+=======
+	
+	.film_list .row {
+>>>>>>> origin/master
 		text-align: center;
 	}
 	
@@ -373,8 +378,13 @@
 	@media (min-width: 992px) {}
 	/* 大屏幕（大桌面显示器，大于等于 1200px） */
 	
+<<<<<<< HEAD
 	@media (min-width: 1200px) {
 		.sidebar {
 			display: block;
 		}
 	}
+=======
+	@media (min-width: 1200px) {}
+	
+>>>>>>> origin/master
