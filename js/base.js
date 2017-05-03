@@ -2,7 +2,97 @@
  * 自行封装的javascript库
  * */
 
+function ajax(obj) {
+	var xhr = (function() {
+		if(typeof XMLHttpRequest != 'undefined') {
+			return new XMLHttpRequest();
+		} else if(typeof ActiveXObject != 'undefined') {
+			var version = [
+				'MSXML2.XMLHttp.6.0',
+				'MSXML2.XMLHttp.3.0',
+				'MSXML2.XMLHttp'
+			];
+			for(var i = 0; version.length; i++) {
+				try {
+					return new ActiveXObject(version[i]);
+				} catch(e) {}
+			}
+		} else {
+			throw new Error('您的系统或浏览器不支持XHR 对象！');
+		}
+	})();
+	obj.url = obj.url + '?rand=' + Math.random();
+	obj.data = (function(data) {
+		var arr = [];
+		for(var i in data) {
+			arr.push(encodeURIComponent(i) + '=' + encodeURIComponent(data[i]));
+		}
+		return arr.join('&');
+	})(obj.data);
+	if(obj.method === 'get') obj.url += obj.url.indexOf('?') == -1 ? '?' + obj.data : '&' +
+		obj.data;
+	if(obj.async === true) {
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState == 4) {
+				callback();
+			}
+		};
+	}
+	xhr.open(obj.method, obj.url, obj.async);
+	if(obj.method === 'post') {
+		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		xhr.send(obj.data);
+	} else {
+		xhr.send(null);
+	}
+	if(obj.async === false) {
+		callback();
+	}
+
+	function callback() {
+		if(xhr.status == 200 || xhr.status ==0) {
+			obj.success(xhr.responseText); //回调传递参数
+		} else {
+			alert('获取数据错误！错误代号：' + xhr.status + '，错误信息：' +
+				xhr.statusText);
+		}
+	}
+}
+
 /*兼容：*/
+//加载DOM
+function addDomLoaded(fn) {
+	var isReady = false;
+	var timer = null;
+
+	function doReady() {
+		if(isReady) return;
+		isReady = true;
+		if(timer) clearInterval(timer);
+		fn();
+	}
+	if(document.addEventListener) { //W3C
+		addEvent(document, 'DOMContentLoaded', function() {
+			doReady();
+			//arguments.callee即函数本身
+			removeEvent(document, 'DOMContentLoaded', arguments.callee);
+		});
+	} else if(sys.ie && sys.ie < 9) { //IE678
+		timer = setInterval(function() {
+			try {
+				document.documentElement.doScroll('left');
+				doReady();
+			} catch(ex) {};
+		}, 1);
+	} else if((sys.webkit && sys.webkit < 525) || (sys.opera && sys.opera < 9) ||
+		(sys.firefox && sys.firefox < 3)) {
+		timer = setInterval(function() {
+			if(/loaded|complete/.test(document.readyState)) {
+				doReady();
+			}
+		}, 1);
+	}
+}
 //浏览器检测
 (function() {
 	//全局对象记录浏览器检测记录
@@ -40,39 +130,7 @@ function getInner() {
 		}
 	}
 }
-//加载DOM
-function addDomLoaded(fn) {
-	var isReady = false;
-	var timer = null;
 
-	function doReady() {
-		if(isReady) return;
-		isReady = true;
-		if(timer) clearInterval(timer);
-		fn();
-	}
-	if(document.addEventListener) { //W3C
-		addEvent(document, 'DOMContentLoaded', function() {
-			doReady();
-			//arguments.callee即函数本身
-			removeEvent(document, 'DOMContentLoaded', arguments.callee);
-		});
-	} else if(sys.ie && sys.ie < 9) { //IE678
-		timer = setInterval(function() {
-			try {
-				document.documentElement.doScroll('left');
-				doReady();
-			} catch(ex) {};
-		}, 1);
-	} else if((sys.webkit && sys.webkit < 525) || (sys.opera && sys.opera < 9) ||
-		(sys.firefox && sys.firefox < 3)) {
-		timer = setInterval(function() {
-			if(/loaded|complete/.test(document.readyState)) {
-				doReady();
-			}
-		}, 1);
-	}
-}
 //获取事件对象
 function getEvent(event) {
 	return event || window.event;
@@ -114,7 +172,16 @@ removeEvent = function(obj, type, fn) {
 		}
 	}
 }
+//阻止浏览器默认行为
 
+var preventDefault = function(e) {
+	e = e || window.event;
+	if(e.preventDefault) {
+		e.preventDefault();
+	} else {
+		e.returnValue = false;
+	}
+}
 /*封装库：*/
 function $(args) {
 	return new Base(args);
@@ -201,6 +268,20 @@ Base.prototype.getTagName = function(tag, parentNode) {
 	}
 	return tags;
 };
+//获取及设置元素属性值
+Base.prototype.attr = function(attr, value) {
+	for(var i = 0; i < this.elements.length; i++) {
+		if(arguments.length == 0) {
+			return this.elements;
+		}
+		if(arguments.length == 1) {
+			return this.elements[i][attr];
+		} else {
+			this.elements[i][attr] = value;
+		}
+	}
+	return this;
+}
 //获取CLASS 节点数组
 Base.prototype.getClass = function(className, parentNode) {
 	var node = null;
@@ -218,7 +299,13 @@ Base.prototype.getClass = function(className, parentNode) {
 	}
 	return temps;
 }
-
+//设置一个绑定事件的方法
+Base.prototype.bind = function(event, fn) {
+	for(var i = 0; i < this.elements.length; i++) {
+		addEvent(this.elements[i], event, fn);
+	}
+	return this;
+}
 //获取或更改内容
 Base.prototype.html = function(value) {
 	for(var i = 0; i < this.elements.length; i++) {

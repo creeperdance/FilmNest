@@ -43,6 +43,7 @@
 		line-height: 40px;
 		background-color: #222;
 	}
+	
 	#myCollapse a:hover {
 		color: #f60;
 	}
@@ -95,19 +96,16 @@
 	}
 	
 	#login_close,
-	#regist_close {
+	#regist_close ,#frame_close {
 		color: #222;
 		cursor: pointer;
 	}
 	
-	#login_close:hover,
-	#regist_close:hover {
+	#login_close:hover,#frame_close:hover,#regist_close:hover {
 		color: #f60;
 	}
 	
-	#user_name,
-	#user_password,
-	#user_password_again {
+	form input {
 		width: 80%;
 		height: 30px;
 		margin-bottom: 22px;
@@ -139,6 +137,39 @@
 	.forget_password,
 	.add_account {
 		margin-left: 5px;
+	}
+	/*提示弹窗*/
+	
+	#flip_frame {
+		background-color: #F9F9F9;
+		width: 220px;
+		height: 150px;
+		position: fixed;
+		z-index: 9999;
+		display: none;
+		
+		-webkit-border-radius: 2px;
+		-moz-border--radius: 2px;
+		border-radius: 2px;
+		
+		-webkit-box-shadow: 0px 0px 10px 2px #000;
+		-moz-box-shadow: 0px 0px 10px 2px #000;
+		box-shadow: 0px 0px 10px 2px #000;
+	}
+	
+	#flip_frame span {
+		position: absolute;
+		top: 30%;
+		color: #666;
+		text-align: center;
+		font-size: 16px;
+		letter-spacing: 1px;
+	}
+	
+	#frame_close {
+		position: relative;
+		left: 190px;
+		top: 10px;
 	}
 	/*锁屏*/
 	
@@ -218,6 +249,7 @@
 	}
 	/*侧边栏*/
 	/*取消boostrap .row引起的滚动条*/
+	
 	.row {
 		margin-left: 0px;
 		margin-right: 0px;
@@ -232,26 +264,29 @@
 		padding-top: 15px;
 		border-right: 2px solid #f8f8f8;
 		display: none;
-		font-family:"din-condensed-web","Trebuchet MS","Arial Narrow",Arial,sans-serif;
+		font-family: "din-condensed-web", "Trebuchet MS", "Arial Narrow", Arial, sans-serif;
 	}
-	.sidebar p{
+	
+	.sidebar p {
 		font-size: 24px;
 		margin: 20px auto;
-		margin-bottom: 150px ;
-		text-align:center;
+		margin-bottom: 150px;
+		text-align: center;
 		cursor: pointer;
 		font-weight: bold;
-		letter-spacing:3px;
+		letter-spacing: 3px;
 		position: relative;
 		width: 60%;
 		height: 24px;
 	}
+	
 	.sidebar img {
 		position: absolute;
-		left:-10%;
+		left: -10%;
 		top: 0;
 		border-radius: 10px;
-		-webkit-filter: grayscale(100%);/* Chrome, Safari, Opera */
+		-webkit-filter: grayscale(100%);
+		/* Chrome, Safari, Opera */
 		filter: grayscale(100%);
 		opacity: 0;
 		filter: alpha(Opacity=0);
@@ -273,9 +308,11 @@
 	.myNest li a {
 		color: #f60;
 	}
-	#film_list1{
+	
+	#film_list1 {
 		padding-top: 80px;
 	}
+	
 	.role_avatar {
 		display: none;
 		padding-top: 30px;
@@ -298,12 +335,8 @@
 		width: 200px;
 		height: 200px;
 	}
-<<<<<<< HEAD
-	.myNest .row {
-=======
 	
-	.film_list .row {
->>>>>>> origin/master
+	.myNest .row {
 		text-align: center;
 	}
 	
@@ -336,9 +369,11 @@
 		top: -6px;
 		width: 80%;
 	}
+	
 	#footer {
 		margin-top: 100px;
 	}
+	
 	#footer span {
 		color: #043e92;
 	}
@@ -378,13 +413,8 @@
 	@media (min-width: 992px) {}
 	/* 大屏幕（大桌面显示器，大于等于 1200px） */
 	
-<<<<<<< HEAD
 	@media (min-width: 1200px) {
 		.sidebar {
 			display: block;
 		}
 	}
-=======
-	@media (min-width: 1200px) {}
-	
->>>>>>> origin/master

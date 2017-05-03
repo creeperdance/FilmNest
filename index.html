@@ -13,7 +13,7 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
 		<script src="bootstrap/respond.min.js"></script>
 		<script src="bootstrap/html5.js"></script>
-
+		
 		<!--引入jquery-->
 		<script type="text/javascript" src="bootstrap/jquery.min.js"></script>
 		<script type="text/javascript" src="bootstrap/bootstrap.min.js"></script>
@@ -24,6 +24,8 @@
 	</head>
 
 	<body>
+		
+		
 		<!--响应式导航栏-->
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="nav_container">
@@ -65,10 +67,10 @@
 		<div class="lock_screen"></div>
 		<!--用户登录-->
 		<div id="user_login">
-			<form action="" method="post">
+			<form id="login_form" action="" method="post">
 				<label>登录FilmNest账号<span id="login_close" class="glyphicon glyphicon-remove pull-right"></span></label>
-				<input id="user_name" type="text" placeholder=" 请输入用户名">
-				<input id="user_password" type="password" placeholder=" 请输入密码">
+				<input class="user_input username" name="username" type="text" placeholder=" 请输入用户名">
+				<input class="user_input password" type="password" placeholder=" 请输入密码">
 				<input type="submit" class="btn_submit" value="登陆FilmNest" />
 				<p class="other_login_options">
 					还没
@@ -94,11 +96,11 @@
           		</label>
 			</div>
 			<div id="user_regist">
-				<form action="" method="post">
+				<form id="regist_form" action="" method="post">
 					<label>注册FilmNest账号<span id="regist_close" class="glyphicon glyphicon-remove pull-right"></span></label>
-					<input id="user_name" type="text" placeholder=" 请输入用户名">
-					<input id="user_password" type="password" placeholder=" 请输入密码">
-					<input id="user_password_again" type="password" placeholder="请确认密码">
+					<input  class="user_input username" type="text" placeholder=" 请输入用户名">
+					<input  class="user_input password" type="password" placeholder=" 请输入密码">
+					<input  class="user_input password_confirm" type="password" placeholder="请确认密码">
 					<input type="submit" class="btn_submit" value="注册FilmNest" />
 					<p class="other_login_options">
 						已经加入FilmNest?
@@ -107,6 +109,10 @@
 				</form>
 			</div>
 		</div>
+		
+		<!--提示弹窗-->
+		<div id="flip_frame"><i id="frame_close" class="glyphicon glyphicon-remove"></i><span>默认信息</span></div>
+		
 		<!--响应式轮播图-->
 		<div id="myCarousel" class="carousel slide">
 			<ol class="carousel-indicators ">
